@@ -32,6 +32,10 @@
 			<artifactId>Simple-Yaml</artifactId>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>net.kyori</groupId>
+			<artifactId>adventure-text-minimessage</artifactId>
+		</dependency>
 	</dependencies>
 	
 	<!-- Build -->
