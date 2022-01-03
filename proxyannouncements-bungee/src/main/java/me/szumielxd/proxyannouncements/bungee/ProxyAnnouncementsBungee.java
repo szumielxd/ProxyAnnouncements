@@ -6,8 +6,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 import org.jetbrains.annotations.NotNull;
-import org.simpleyaml.configuration.ConfigurationSection;
-
 import me.szumielxd.proxyannouncements.bungee.commands.BungeeCommandWrapper;
 import me.szumielxd.proxyannouncements.bungee.objects.BungeeProxy;
 import me.szumielxd.proxyannouncements.common.ProxyAnnouncements;
@@ -34,6 +32,7 @@ public class ProxyAnnouncementsBungee extends Plugin implements ProxyAnnouncemen
 	}
 	
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void onEnable() {
 		ProxyAnnouncementsProvider.init(this);
@@ -44,7 +43,7 @@ public class ProxyAnnouncementsBungee extends Plugin implements ProxyAnnouncemen
 		this.getLogger().info("Loading announcements...");
 		int i = 0;
 		if (!Config.ANNOUNCEMENTS.getValueMap().isEmpty()) for(Entry<String, ?> entry : Config.ANNOUNCEMENTS.getValueMap().entrySet()) {
-			SerializableAnnouncement ann = new SerializableAnnouncement((ConfigurationSection) entry.getValue());
+			SerializableAnnouncement ann = new SerializableAnnouncement((Map<String, Object>) entry.getValue());
 			if (ann.getMessages().isEmpty()) {
 				this.getLogger().info(String.format("Announcement with id `%s` is empty. Skipping...", entry.getKey()));
 				continue;

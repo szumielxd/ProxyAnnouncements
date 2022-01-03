@@ -2,6 +2,7 @@ package me.szumielxd.proxyannouncements.velocity;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
@@ -9,8 +10,6 @@ import java.util.logging.Logger;
 import javax.inject.Inject;
 
 import org.jetbrains.annotations.NotNull;
-import org.simpleyaml.configuration.ConfigurationSection;
-
 import com.velocitypowered.api.command.CommandManager;
 import com.velocitypowered.api.command.CommandMeta;
 import com.velocitypowered.api.event.Subscribe;
@@ -63,6 +62,7 @@ public class ProxyAnnouncementsVelocity implements ProxyAnnouncements {
 	}
 	
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void onEnable() {
 		ProxyAnnouncementsProvider.init(this);
@@ -72,7 +72,7 @@ public class ProxyAnnouncementsVelocity implements ProxyAnnouncements {
 		this.getLogger().info("Loading announcements...");
 		int i = 0;
 		if (!Config.ANNOUNCEMENTS.getValueMap().isEmpty()) for(Entry<String, ?> entry : Config.ANNOUNCEMENTS.getValueMap().entrySet()) {
-			SerializableAnnouncement ann = new SerializableAnnouncement((ConfigurationSection) entry.getValue());
+			SerializableAnnouncement ann = new SerializableAnnouncement((Map<String, Object>) entry.getValue());
 			if (ann.getMessages().isEmpty()) {
 				this.getLogger().info(String.format("Announcement with id `%s` is empty. Skipping...", entry.getKey()));
 				continue;
