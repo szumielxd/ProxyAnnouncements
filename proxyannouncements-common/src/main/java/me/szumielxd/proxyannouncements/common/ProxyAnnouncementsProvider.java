@@ -17,7 +17,7 @@ public class ProxyAnnouncementsProvider {
 	
 	
 	public static @NotNull ProxyAnnouncements get() {
-		if (instance == null) throw new IllegalArgumentException("AdminUtilities is not initialized");
+		if (instance == null) throw new IllegalArgumentException("ProxyAnnouncements is not initialized");
 		return instance;
 	}
 	
