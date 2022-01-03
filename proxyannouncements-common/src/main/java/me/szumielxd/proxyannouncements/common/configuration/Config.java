@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 import org.jetbrains.annotations.NotNull;
 import org.simpleyaml.configuration.Configuration;
-import org.simpleyaml.configuration.ConfigurationSection;
+import org.simpleyaml.configuration.MemorySection;
 import org.simpleyaml.configuration.file.YamlConfiguration;
 
 import me.szumielxd.proxyannouncements.common.ProxyAnnouncements;
@@ -195,12 +195,7 @@ public enum Config {
 	@SuppressWarnings("unchecked")
 	private static <T> Map<String,T> getMapOrSetDefault(Configuration config, String path, Map<String,T> def) {
 		if (config.contains(path)) {
-			Map<String,T> map = new HashMap<>();
-			ConfigurationSection section = config.getConfigurationSection(path);
-			for (String key : section.getKeys(false)) {
-				map.put(key, (T) section.get(key));
-			}
-			return map;
+			return (Map<String, T>) ((MemorySection) config.getConfigurationSection(path)).getMapValues(false);
 		}
 		config.set(path, def);
 		return def;
