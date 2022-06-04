@@ -14,6 +14,7 @@ import com.velocitypowered.api.proxy.server.RegisteredServer;
 import me.szumielxd.proxyannouncements.common.objects.CommonPlayer;
 import me.szumielxd.proxyannouncements.common.objects.CommonProxy;
 import me.szumielxd.proxyannouncements.common.objects.CommonScheduler;
+import me.szumielxd.proxyannouncements.common.objects.CommonSender;
 import me.szumielxd.proxyannouncements.velocity.ProxyAnnouncementsVelocity;
 
 public class VelocityProxy implements CommonProxy {
@@ -49,6 +50,11 @@ public class VelocityProxy implements CommonProxy {
 		return this.plugin.getProxy().getServer(Objects.requireNonNull(serverName, "serverName cannot be null"))
 				.map(RegisteredServer::getPlayersConnected)
 				.map(list -> list.parallelStream().map(p -> new VelocityPlayer(this.plugin, p)).collect(Collectors.toList()));
+	}
+	
+	@Override
+	public @NotNull CommonSender getConsole() {
+		return VelocitySender.wrap(this.plugin, this.plugin.getProxy().getConsoleCommandSource());
 	}
 	
 	@Override

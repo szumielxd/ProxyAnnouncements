@@ -13,6 +13,7 @@ import me.szumielxd.proxyannouncements.bungee.ProxyAnnouncementsBungee;
 import me.szumielxd.proxyannouncements.common.objects.CommonPlayer;
 import me.szumielxd.proxyannouncements.common.objects.CommonProxy;
 import me.szumielxd.proxyannouncements.common.objects.CommonScheduler;
+import me.szumielxd.proxyannouncements.common.objects.CommonSender;
 import net.md_5.bungee.api.config.ServerInfo;
 
 public class BungeeProxy implements CommonProxy {
@@ -47,6 +48,11 @@ public class BungeeProxy implements CommonProxy {
 	public @NotNull Optional<Collection<CommonPlayer>> getPlayers(@NotNull String serverName) {
 		return Optional.ofNullable(this.plugin.getProxy().getServerInfo(Objects.requireNonNull(serverName, "serverName cannot be null")))
 				.map(ServerInfo::getPlayers).map(list -> list.parallelStream().map(p -> new BungeePlayer(this.plugin, p)).collect(Collectors.toList()));
+	}
+	
+	@Override
+	public @NotNull CommonSender getConsole() {
+		return BungeeSender.wrap(this.plugin, this.plugin.getProxy().getConsole());
 	}
 	
 	@Override
